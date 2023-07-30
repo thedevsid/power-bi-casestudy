@@ -1,0 +1,36 @@
+import powerbi
+
+# Connect to the Power BI dataset
+dataset = powerbi.Dataset("AirportPerformance.pbix")
+
+# Get the list of flights
+flights = dataset["Flights"]
+
+# Calculate the number of flights per day
+flights_per_day = flights.groupby("Day").size()
+
+# Calculate the total number of passengers
+passengers = flights.sum("Passengers")
+
+# Create a line chart showing the number of flights per day
+line_chart = flights_per_day.plot(kind="line")
+
+# Add a title and labels to the line chart
+line_chart.set_title("Number of Flights per Day")
+line_chart.set_xlabel("Day")
+line_chart.set_ylabel("Number of Flights")
+
+# Save the line chart as an image
+line_chart.save("flights_per_day.png")
+
+# Create a bar chart showing the total number of passengers
+bar_chart = passengers.plot(kind="bar")
+
+# Add a title and labels to the bar chart
+bar_chart.set_title("Total Number of Passengers")
+bar_chart.set_xlabel("Airport")
+bar_chart.set_ylabel("Number of Passengers")
+
+# Save the bar chart as an image
+bar_chart.save("passengers.png")
+Power BI dataset, calculate the number of flights per day and the total number of passengers, and create two charts showing this data
